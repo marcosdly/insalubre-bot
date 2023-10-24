@@ -1,0 +1,35 @@
+[tool.pyright]
+
+include = [
+    "src"
+]
+exclude = [
+    "**/__pycache__"
+]
+venvPath = "."
+venv = ".venv"
+pythonPlatform = "Linux"
+
+[tool.ruff]
+
+fix = true
+respect-gitignore = true
+line-length = 88
+tab-size = 4
+indent-width = 4
+target-version = "py311"
+src = ["src"]
+ignore = ["E501"]
+
+[tool.ruff.format]
+
+indent-syle = "space"
+line-ending = "lf"
+quote-syle = "double"
+
+[tool.ruff.flake8-quotes]
+
+docstring-quotes = "double"
+inline-quotes = "double"
+multiline-quotes = "double"
+
