@@ -13,8 +13,9 @@ async def on_voice_state_update(
         return
 
     if (
-        (before.channel is not None and after.channel is not None)
-        and before.channel.id == after.channel.id
+        after.channel is None
+        or before.channel is None
+        or before.channel.id == after.channel.id
     ):
         return
 
