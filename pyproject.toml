@@ -10,6 +10,8 @@ venvPath = "."
 venv = ".venv"
 pythonPlatform = "Linux"
 
+reportOptionalMemberAccess = "none"
+
 [tool.ruff]
 
 fix = true
