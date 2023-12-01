@@ -1,18 +1,19 @@
 from os.path import join, abspath, dirname
 from dataclasses import dataclass
 from contextlib import contextmanager
+from pathlib import PurePath
 import json
 from typing import Any
 
 @dataclass(frozen=True, init=False)
 class ProjectFolders:
-    root = abspath(join(dirname(__file__), "..", ".."))
-    config = join(root, "config")
-    templates = join(root, "templates")
+    root = PurePath(abspath(join(dirname(__file__), "..", "..")))
+    config = root.joinpath("config")
+    templates = root.joinpath("templates")
 
 @contextmanager
 def access_db():
-    path = join(ProjectFolders.root, "db.json")
+    path = ProjectFolders.root.joinpath("db.json")
     with open(path, "rb") as file:
         content = json.load(file)
     yield content
@@ -20,9 +21,9 @@ def access_db():
         json.dump(content, file)
 
 def raw_access_db() -> dict[str, Any]:
-    with open(join(ProjectFolders.root, "db.json"), "rb") as file:
+    with open(ProjectFolders.root.joinpath("db.json")) as file:
         return json.load(file)
     
 def get_secrets() -> dict[str, Any]:
-    with open(join(ProjectFolders.config, "secrets.json")) as file:
+    with open(ProjectFolders.config.joinpath("secrets.json")) as file:
         return json.load(file)
