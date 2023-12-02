@@ -1,15 +1,17 @@
 import discord
 from local.io import access_db
-from constants import Constants
 
-async def add_friend(message: discord.Message, command: str, *, sudo: bool = False) -> None:
+async def add_friend(message: discord.Message, *, sudo_command: str | None = None, sudo: bool = False) -> None:
+    """If `sudo` is `True` you don't need to specify a `sudo_command`."""
     if sudo and message.mention_everyone:
         with access_db() as db:
             db["whatsapp"]["notify"] = [x.id for x in message.guild.members]
         await message.channel.send("Agora todo mundo está na sua lista de amigos (nem um pouco suspeito).", reference=message.to_reference())
         return
     elif message.mention_everyone:
-        await message.channel.send(f"Vocẽ não pode adicionar todo mundo de uma vez só à sua lista de amigos (medida anti-estupidez). Para fazer isso, utilize o comando {command + Constants.suffixes.sudo}.", reference=message.to_reference())
+        if sudo_command is None:
+            raise ValueError("A command to tell the user what to run in order to do the distructive action is necessary.")
+        await message.channel.send(f"Vocẽ não pode adicionar todo mundo de uma vez só à sua lista de amigos (medida anti-estupidez). Para fazer isso, utilize o comando {sudo_command}.", reference=message.to_reference())
         return
     
     if len(message.mentions) == 0:
@@ -32,14 +34,16 @@ async def add_friend(message: discord.Message, command: str, *, sudo: bool = Fal
         await message.channel.send("Amigos adicionados com sucesso!", reference=message.to_reference())
         return
     
-async def remove_friend(message: discord.Message, cmd: str, *, sudo: bool = False) -> None:
+async def remove_friend(message: discord.Message, *, sudo_command: str | None = None, sudo: bool = False) -> None:
     if sudo and message.mention_everyone:
         with access_db() as db:
             db["whatsapp"]["notify"].clear()
             await message.channel.send("Você removeu todo mundo da sua lista de amigos (equivalente a ser cinéfilo).", reference=message.to_reference())
             return
     elif message.mention_everyone:
-        await message.channel.send(f"Você não pode remover todo mundo da sua lista de amigos, para fazer isso, utilize o comando {cmd + Constants.suffixes.insecure}.", reference=message.to_reference())
+        if sudo_command is None:
+            raise ValueError("A command to tell the user what to run in order to do the distructive action is necessary.")
+        await message.channel.send(f"Você não pode remover todo mundo da sua lista de amigos, para fazer isso, utilize o comando {sudo_command}.", reference=message.to_reference())
         return
     
     if len(message.mentions) == 0:
