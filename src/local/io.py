@@ -10,6 +10,7 @@ class ProjectFolders:
     root = PurePath(abspath(join(dirname(__file__), "..", "..")))
     config = root.joinpath("config")
     templates = root.joinpath("templates")
+    logs = root.joinpath(".runtime-logs")
 
 @contextmanager
 def access_db():

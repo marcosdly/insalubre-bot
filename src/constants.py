@@ -1,5 +1,6 @@
 import argparse
 from typing import NamedTuple
+from logging import getLevelNamesMapping
 
 __all__ = ["Constants"]
 
@@ -23,7 +24,9 @@ class Constants:
             exit_on_error=True,
         )
 
-        parser.add_argument("--debug", type=bool, help="Log to stdin instead of warning friends", default=False)
+        parser.add_argument("--debug",help="Log to stdin instead of warning friends", default=False, dest="debug", action="store_true")
+        parser.add_argument("--log-stdout", help="Send debug logs to stdout", default=False, dest="debug_log_stdout", action="store_true")
+        parser.add_argument("--log-level", type=str, help="Debug log level", default="INFO", choices=getLevelNamesMapping().keys(), dest="debug_log_lvl")
         
         return parser.parse_args()
 
