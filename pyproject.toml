@@ -1,36 +1,37 @@
+[project]
+name = "insalubre-bot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aiodns>=3.2.0",
+    "aiosqlite>=0.21.0",
+    "brotli>=1.1.0",
+    "nextcord[speed]>=3,<4",
+    "orjson>=3.10.15",
+    "pynacl>=1.5.0",
+    "sqlalchemy[asyncio]>=2,<3",
+    "whatsapp-api-client-python>=0.0.49",
+]
+
 [tool.pyright]
-
-include = [
-    "src"
-]
-exclude = [
-    "**/__pycache__"
-]
-venvPath = "."
-venv = ".venv"
-pythonPlatform = "Linux"
-
-reportOptionalMemberAccess = "none"
+include = [ "src" ]
 
 [tool.ruff]
-
 fix = true
 respect-gitignore = true
 line-length = 88
-indent-width = 4
-target-version = "py311"
+indent-width = 2
 src = ["src"]
-ignore = ["E501"]
 
 [tool.ruff.format]
-
 indent-style = "space"
-line-ending = "lf"
-quote-style = "double"
+line-ending = "auto"
+quote-style = "single"
 
 [tool.ruff.flake8-quotes]
-
 docstring-quotes = "double"
-inline-quotes = "double"
+inline-quotes = "single"
 multiline-quotes = "double"
 
