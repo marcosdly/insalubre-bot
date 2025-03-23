@@ -17,6 +17,7 @@ dependencies = [
 
 [tool.pyright]
 include = [ "src" ]
+reportUnusedImport = false
 
 [tool.ruff]
 fix = true
@@ -24,6 +25,10 @@ respect-gitignore = true
 line-length = 88
 indent-width = 2
 src = ["src"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+"src/__main__.py" = ["F401"]
 
 [tool.ruff.format]
 indent-style = "space"
