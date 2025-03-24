@@ -19,8 +19,8 @@ async_session = async_sessionmaker(engine)
 
 @event.listens_for(engine.sync_engine, 'first_connect')
 def ensure_music_bot_data(conn: DBAPIConnection, conn_record: ConnectionPoolEntry):
-  from ...migrations.data_hardcoded.table_music_bot import DATA
-  from .schema import MusicBot
+  from migrations.data_hardcoded.table_music_bot import DATA
+  from src.db.schema import MusicBot
 
   cursor = conn.cursor()
   select_stmt = select(MusicBot.user_id)
