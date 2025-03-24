@@ -16,6 +16,10 @@ dependencies = [
 [tool.pyright]
 include = [ "src" ]
 reportUnusedImport = false
+executionEnvironments = [
+ { root = 'src/db', reportUninitializedInstanceVariable = false }
+]
+
 
 [tool.ruff]
 fix = true
