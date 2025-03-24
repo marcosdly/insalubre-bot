@@ -25,6 +25,10 @@ class SQLType_MusicBotCommands(types.TypeDecorator[str]):
   separator = '\0'
   """List separator that should be unique and not conflict with any prefix or suffix"""
 
+  def __init__(self, cache_hash: Never = ...):  # pyright: ignore[reportArgumentType]
+    super().__init__()
+    self.cache_hash = uuid.uuid4().int
+
   @override
   def process_bind_param(
     self, value: str | None, dialect: engine.Dialect
