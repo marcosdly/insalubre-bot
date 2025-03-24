@@ -21,6 +21,7 @@ reportUnusedImport = false
 root = 'src/db'
 reportUninitializedInstanceVariable = false
 reportExplicitAny = false
+reportDeprecated = false
 
 
 [tool.ruff]

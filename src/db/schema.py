@@ -1,12 +1,13 @@
 import string
-from typing import Any, NamedTuple, final, override
+import uuid
+from typing import Any, NamedTuple, Never, Optional, final, override
 
 from sqlalchemy import engine, types
 from sqlalchemy.ext.asyncio import AsyncAttrs
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
-# region CUSTOM TYPES
+# region Type: MusicBotCommands
 class MusicBotCommands(NamedTuple):
   play: str = 'play'
   pause: str = 'pause'
@@ -66,6 +67,8 @@ class MusicBot(BaseTable):
   __tablename__: str = 'music_bot'
 
   user_id: Mapped[int] = mapped_column(primary_key=True, autoincrement=False)
-  prefix: Mapped[str]
-  commands: Mapped[MusicBotCommands] = mapped_column(SQLType_MusicBotCommands)
-  voice_channel_id: Mapped[int] = mapped_column(nullable=True, default=None)
+  prefix: Mapped[Optional[str]] = mapped_column(default=None)
+  description: Mapped[Optional[str]] = mapped_column(default=None)
+  uses_slash_commands: Mapped[bool] = mapped_column(default=False)
+  commands: Mapped[MusicBotCommands] = mapped_column(default=MusicBotCommands())
+  voice_channel_id: Mapped[Optional[int]] = mapped_column(default=None)
