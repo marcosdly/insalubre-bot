@@ -3,9 +3,14 @@ from pprint import pprint
 import nextcord
 from nextcord.ext import commands
 
+GUILD_IDS: set[int] = set()
+
 bot = commands.Bot(lazy_load_commands=False)
 
 
 @bot.event
 async def on_ready():
+  for guild in bot.guilds:
+    GUILD_IDS.add(guild.id)
+  pprint(GUILD_IDS, indent=2, underscore_numbers=True)
   pprint(vars(bot))
