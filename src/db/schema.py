@@ -2,6 +2,7 @@ import string
 from typing import Any, NamedTuple, final, override
 
 from sqlalchemy import engine, types
+from sqlalchemy.ext.asyncio import AsyncAttrs
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
@@ -51,7 +52,7 @@ class SQLType_MusicBotCommands(types.TypeDecorator[str]):
 # endregion CUSTOM TYPES
 
 
-class BaseTable(DeclarativeBase):
+class BaseTable(AsyncAttrs, DeclarativeBase):
   pass
 
 

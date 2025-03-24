@@ -14,3 +14,9 @@ async def on_ready():
     GUILD_IDS.add(guild.id)
   pprint(GUILD_IDS, indent=2, underscore_numbers=True)
   pprint(vars(bot))
+
+  from src.db.client import engine
+  from src.db.schema import BaseTable
+
+  async with engine.begin() as conn:
+    await conn.run_sync(BaseTable.metadata.create_all)
