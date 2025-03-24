@@ -16,9 +16,11 @@ dependencies = [
 [tool.pyright]
 include = [ "src" ]
 reportUnusedImport = false
-executionEnvironments = [
- { root = 'src/db', reportUninitializedInstanceVariable = false }
-]
+
+[[tool.pyright.executionEnvironments]]
+root = 'src/db'
+reportUninitializedInstanceVariable = false
+reportExplicitAny = false
 
 
 [tool.ruff]
