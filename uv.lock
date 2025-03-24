@@ -281,9 +281,7 @@ name = "insalubre-bot"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
-    { name = "aiodns" },
     { name = "aiosqlite" },
-    { name = "brotli" },
     { name = "nextcord", extra = ["speed"] },
     { name = "orjson" },
     { name = "pynacl" },
@@ -293,9 +291,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "aiodns", specifier = ">=3.2.0" },
     { name = "aiosqlite", specifier = ">=0.21.0" },
-    { name = "brotli", specifier = ">=1.1.0" },
     { name = "nextcord", extras = ["speed"], specifier = ">=3,<4" },
     { name = "orjson", specifier = ">=3.10.15" },
     { name = "pynacl", specifier = ">=1.5.0" },
@@ -447,8 +443,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/20/78/6819d2c283ce7b53ef639fff44f15ea46dd5dd57307f25d46fb41d83966c/pycares-4.5.0-cp313-cp313-musllinux_1_2_ppc64le.whl", hash = "sha256:bc7a1d8ed7c7a4de17706a3c89b305b02eb64c778897e6727c043e5b9dd0d853", size = 297722 },
     { url = "https://files.pythonhosted.org/packages/bd/0d/6776b00eb6ea3d2742ac4f4e1d4bf170168d0923effffa1963e3b4619019/pycares-4.5.0-cp313-cp313-musllinux_1_2_s390x.whl", hash = "sha256:5703ec878b5c1efacdbf24ceaedfa606112fc67af5564f4db99c2c210f3ffadc", size = 291628 },
     { url = "https://files.pythonhosted.org/packages/13/29/c329ec7ef6cd88335676d71ed8a059d0fd2f5adcff3ab3537e03327955fa/pycares-4.5.0-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:d87758e09dbf52c27ed7cf7bc7eaf8b3226217d10c52b03d61a14d59f40fcae1", size = 281161 },
-    { url = "https://files.pythonhosted.org/packages/02/c4/aadb6b4a60b040bd6c4de31d971d4a07f54af274594a368de06170ede457/pycares-4.5.0-cp313-cp313-win32.whl", hash = "sha256:3316d490b4ce1a69f034881ac1ea7608f5f24ea5293db24ab574ac70b7d7e407", size = 61624 },
-    { url = "https://files.pythonhosted.org/packages/32/38/33889749dde2c3ecab5039d72459769d8714665ba3038e718f514c556517/pycares-4.5.0-cp313-cp313-win_amd64.whl", hash = "sha256:018e700fb0d1a2db5ec96e404ffa85ed97cc96e96d6af0bb9548111e37cf36a3", size = 76546 },
 ]
 
 [[package]]
