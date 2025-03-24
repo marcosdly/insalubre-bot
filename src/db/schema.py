@@ -8,14 +8,14 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 # region CUSTOM TYPES
 class MusicBotCommands(NamedTuple):
-  play: str
-  pause: str
-  resume: str
-  stop: str
-  skip: str
-  nowplaying: str
-  queue: str
-  search: str
+  play: str = 'play'
+  pause: str = 'pause'
+  resume: str = 'resume'
+  stop: str = 'stop'
+  skip: str = 'skip'
+  nowplaying: str = 'np'
+  queue: str = 'q'
+  search: str = 'search'
 
 
 @final
