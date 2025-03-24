@@ -14,7 +14,9 @@ dependencies = [
 ]
 
 [tool.pyright]
-include = [ "src", "migrations" ]
+
+[[tool.pyright.executionEnvironments]]
+root = '.'
 reportUnusedImport = false
 
 [[tool.pyright.executionEnvironments]]
@@ -22,7 +24,6 @@ root = 'src/db'
 reportUninitializedInstanceVariable = false
 reportExplicitAny = false
 reportDeprecated = false
-
 
 [tool.ruff]
 fix = true
@@ -32,8 +33,8 @@ indent-width = 2
 src = ["src", "migrations"]
 
 [tool.ruff.lint.per-file-ignores]
-"__init__.py" = ["F401"]
-"src/__main__.py" = ["F401"]
+"**/__init__.py" = ["F401"]
+"**/__main__.py" = ["F401"]
 
 [tool.ruff.format]
 indent-style = "space"
