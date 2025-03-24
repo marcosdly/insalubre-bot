@@ -62,3 +62,4 @@ class MusicBot(BaseTable):
   user_id: Mapped[int] = mapped_column(primary_key=True, autoincrement=False)
   prefix: Mapped[str]
   commands: Mapped[MusicBotCommands] = mapped_column(SQLType_MusicBotCommands)
+  voice_channel_id: Mapped[int] = mapped_column(nullable=True, default=None)
