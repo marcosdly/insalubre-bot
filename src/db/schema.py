@@ -57,7 +57,9 @@ class SQLType_MusicBotCommands(types.TypeDecorator[str]):
 
 
 class BaseTable(AsyncAttrs, DeclarativeBase):
-  pass
+  type_annotation_map: dict[type[Any], type[types.TypeEngine[Any]]] = {
+    MusicBotCommands: SQLType_MusicBotCommands,
+  }
 
 
 class MusicBot(BaseTable):
