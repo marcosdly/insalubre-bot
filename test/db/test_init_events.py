@@ -1,10 +1,11 @@
-from typing import TYPE_CHECKING, Unpack
+from typing import TYPE_CHECKING, Any, Unpack
 
 import pytest
 import pytest_asyncio
-from sqlalchemy import event
+from sqlalchemy import event, inspect
 from sqlalchemy.engine.reflection import Inspector
 from sqlalchemy.ext.asyncio import AsyncEngine
+from sqlalchemy.inspection import Inspectable
 from src.db.client import dbevent_create_schema
 
 if TYPE_CHECKING:
@@ -32,17 +33,22 @@ async def test_create_schema(async_engine: AsyncEngine):
 
   event.listen(async_engine.sync_engine, 'first_connect', run_event)
 
+  tables_should_exist = ['music_bot']
+
+  def sync_run_inspection(conn_inner: Inspectable[Any]):
+    inspector: Inspector = inspect(conn_inner)
+    # NOTE: metadata.create_all parameter 'checkfirst' is True, so schema creation
+    # will not be forced in case tables already exist.
+    # Pre-runtime tests of schema validation are a matter migration.
+    for table_name in tables_should_exist:
+      assert inspector.has_table(table_name) is True, (
+        f"table does not exist: '{table_name}'"
+      )
+
   try:
-    async with async_engine.begin() as _:
+    async with async_engine.begin() as conn:
       # event will be called as soon as trying to create connection
       assert _called is True, 'event was not called'
-      inspector = Inspector(async_engine.sync_engine)
-      tables_should_exist = ['music_bot']
-
-      # NOTE: metadata.create_all parameter 'checkfirst' is True, so schema creation
-      # will not be forced in case tables already exist.
-      # Pre-runtime tests of schema validation are a matter migration.
-      for table_name in tables_should_exist:
-        assert inspector.has_table(table_name), f"table does not exist: '{table_name}'"
+      await conn.run_sync(sync_run_inspection)
   except Exception as err:
     pytest.fail(str(err))
