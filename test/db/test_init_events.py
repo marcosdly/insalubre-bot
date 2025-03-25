@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 def async_engine():
   from sqlalchemy import create_engine
 
-  return create_engine('sqlite+aiosqlite://:memory:')
+  return create_engine('sqlite+aiosqlite:///:memory:')
 
 
 async def test_create_schema(async_engine: AsyncEngine):
