@@ -46,3 +46,8 @@ docstring-quotes = "double"
 inline-quotes = "single"
 multiline-quotes = "double"
 
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+]
+
