@@ -30,7 +30,7 @@ fix = true
 respect-gitignore = true
 line-length = 88
 indent-width = 2
-src = ["src", "migrations"]
+src = ["src", "migrations", "test"]
 
 [tool.ruff.lint.per-file-ignores]
 "**/__init__.py" = ["F401"]
