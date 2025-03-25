@@ -49,5 +49,6 @@ multiline-quotes = "double"
 [dependency-groups]
 dev = [
     "pytest>=8.3.5",
+    "pytest-asyncio>=0.26.0",
 ]
 
