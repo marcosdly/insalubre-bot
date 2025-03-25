@@ -1,10 +1,19 @@
-from collections.abc import Sequence
+# from collections.abc import Sequence
 from pathlib import Path
 
-from sqlalchemy import event, insert, select
-from sqlalchemy.engine.interfaces import DBAPIConnection
-from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
-from sqlalchemy.pool import ConnectionPoolEntry
+# from sqlalchemy import  insert, select
+from typing import TYPE_CHECKING, Unpack
+
+if TYPE_CHECKING:
+  from sqlalchemy.dialects.sqlite.aiosqlite import AsyncAdapt_aiosqlite_connection
+  from sqlalchemy.pool import ConnectionPoolEntry
+
+from sqlalchemy.ext.asyncio import (
+  async_sessionmaker,
+  create_async_engine,
+)
+
+# region Init ORM
 
 if __debug__:
   db_path = Path('persistent_data.dev.db')
@@ -16,22 +25,27 @@ engine = create_async_engine(
 )
 async_session = async_sessionmaker(engine)
 
+# endregion
 
-@event.listens_for(engine.sync_engine, 'first_connect')
-def ensure_music_bot_data(conn: DBAPIConnection, conn_record: ConnectionPoolEntry):
-  from migrations.data_hardcoded.table_music_bot import DATA
-  from src.db.schema import MusicBot
 
-  cursor = conn.cursor()
-  select_stmt = select(MusicBot.user_id)
-  primary_keys: Sequence[int] = cursor.execute(select_stmt)
-  data_intersection = [row for row in DATA if row.user_id not in primary_keys]
-  if len(data_intersection) == 0:
-    return
+# region Event callbacks
 
-  insert_stmt = insert(MusicBot).values(data_intersection)
-  cursor.execute(insert_stmt)
 
-  conn.commit()
-  cursor.close()
-  conn.close()
+def dbevent_create_schema(
+  *_: Unpack[tuple['AsyncAdapt_aiosqlite_connection', 'ConnectionPoolEntry']],
+):
+  import asyncio
+
+  async def create_schema():
+    from src.db.schema import BaseTable
+
+    global engine
+
+    async with engine.begin() as conn:
+      await conn.run_sync(BaseTable.metadata.create_all)
+
+  with asyncio.Runner(debug=__debug__, loop_factory=asyncio.new_event_loop) as runner:
+    runner.run(create_schema())
+
+
+# endregion
