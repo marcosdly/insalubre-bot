@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 @pytest.fixture(scope='function')
 def async_engine():
-  from sqlalchemy import create_engine
+  from sqlalchemy.ext.asyncio import create_async_engine
 
-  return create_engine('sqlite+aiosqlite:///:memory:')
+  return create_async_engine('sqlite+aiosqlite:///:memory:')
 
 
 @pytest.mark.asyncio
