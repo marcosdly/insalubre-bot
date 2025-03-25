@@ -35,7 +35,7 @@ async def test_create_schema(async_engine: AsyncEngine):
   try:
     async with async_engine.begin() as _:
       # event will be called as soon as trying to create connection
-      assert _called, 'event was not called'
+      assert _called is True, 'event was not called'
       inspector = Inspector(async_engine.sync_engine)
       tables_should_exist = ['music_bot']
 
