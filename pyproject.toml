@@ -25,6 +25,11 @@ reportUninitializedInstanceVariable = false
 reportExplicitAny = false
 reportDeprecated = false
 
+[[tool.pyright.executionEnvironments]]
+root = "test/db"
+extraPaths = ["src/db"]
+reportExplicitAny = false
+
 [tool.ruff]
 fix = true
 respect-gitignore = true
