@@ -18,6 +18,7 @@ def async_engine():
   return create_engine('sqlite+aiosqlite:///:memory:')
 
 
+@pytest.mark.asyncio
 async def test_create_schema(async_engine: AsyncEngine):
   _called = False
 
