@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING, Unpack
 
 import pytest
+import pytest_asyncio
 from sqlalchemy import event
 from sqlalchemy.engine.reflection import Inspector
 from sqlalchemy.ext.asyncio import AsyncEngine
@@ -11,14 +12,14 @@ if TYPE_CHECKING:
   from sqlalchemy.pool import ConnectionPoolEntry
 
 
-@pytest.fixture(scope='function')
-def async_engine():
+@pytest_asyncio.fixture(loop_scope='session', scope='function')
+async def async_engine():
   from sqlalchemy.ext.asyncio import create_async_engine
 
   return create_async_engine('sqlite+aiosqlite:///:memory:')
 
 
-@pytest.mark.asyncio
+@pytest.mark.asyncio(loop_scope='session')
 async def test_create_schema(async_engine: AsyncEngine):
   _called = False
 
